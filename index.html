@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今夜不设防 | 导航页</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(145deg, #141e30, #243b55);
+            color: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 900px;
+            padding: 30px;
+            background: #1c1c1c;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .container h1 {
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #f3f3f3;
+        }
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+        .links li {
+            flex: 1 1 45%;
+            margin: 15px;
+        }
+        .links a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 1.4em;
+            padding: 15px;
+            background: linear-gradient(145deg, #2b2b2b, #3d3d3d);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .links a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+        .advertisement {
+            margin: 30px 0;
+            padding: 20px;
+            background: #292929;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .advertisement p {
+            font-size: 1.2em;
+            margin: 0;
+            font-weight: 400;
+            color: #e0e0e0;
+        }
+        .contact {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        .contact a {
+            color: #f3f3f3;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .contact a:hover {
+            color: #aaaaaa;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .links li {
+                flex: 1 1 100%;
+                margin: 10px 0;
+            }
+            .container {
+                width: 100%;
+                padding: 20px;
+            }
+            .container h1 {
+                font-size: 2em;
+            }
+            .contact {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>今夜不设防 | 导航页</h1>
+        
+        <!-- 链接部分 -->
+        <ul class="links">
+            <li><a href="https://sz.jinyebushefang.cc" target="_blank">深圳 | 今夜不设防</a></li>
+            <li><a href="https://gz.jinyebushefang.cc" target="_blank">广州 | 今夜不设防</a></li>
+            <li><a href="https://www.example3.com" target="_blank">链接3</a></li>
+            <li><a href="https://www.example4.com" target="_blank">链接4</a></li>
+            <li><a href="https://www.example5.com" target="_blank">链接5</a></li>
+            <li><a href="https://www.example6.com" target="_blank">链接6</a></li>
+        </ul>
+        
+        <!-- 广告栏 -->
+        <div class="advertisement">
+            <p>这里是广告栏，您可以在此处放置广告内容。</p>
+        </div>
+        
+        <!-- 联系我们部分 -->
+        <div class="contact">
+            <a href="tg://resolve?domain=jinyebushefang_bot">电报</a>
+            <a href="#" onclick="copyToClipboard('npub1rvjt2zhrppy2pemqcpkxwum7dau0j0cycvu276ucw0h5dld79pzs73evrz')">Nostr</a>
+            <a href="https://pd.qq.com/s/3zna9ckmi" target="_blank">QQ频道</a>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('已复制，请打开Nostr客户端访问');
+            }, function(err) {
+                console.error('复制失败: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
