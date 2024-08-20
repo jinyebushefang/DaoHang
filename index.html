@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes"> <!-- 允许全屏模式 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- 状态栏样式 -->
     <title>今夜不设防 | 导航页</title>
     <style>
         body {
@@ -14,6 +16,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden; /* 防止页面滚动 */
         }
         .container {
             width: 90%;
@@ -25,12 +28,13 @@
             text-align: center;
         }
         .container h1 {
-            margin-bottom: 30px;
+            margin: 20px 0; /* 调整顶部和底部的边距 */
             font-size: 2.5em;
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
             color: #f3f3f3;
+            overflow: hidden; /* 确保标题不被遮挡 */
         }
         .links {
             display: flex;
@@ -101,6 +105,7 @@
             }
             .container h1 {
                 font-size: 2em;
+                margin: 15px 0; /* 调整移动端的边距 */
             }
             .contact {
                 flex-direction: column;
@@ -117,6 +122,10 @@
         <ul class="links">
             <li><a href="https://sz.jinyebushefang.cc" target="_blank">深圳 | 今夜不设防</a></li>
             <li><a href="https://gz.jinyebushefang.cc" target="_blank">广州 | 今夜不设防</a></li>
+            <li><a href="https://www.example3.com" target="_blank">链接3</a></li>
+            <li><a href="https://www.example4.com" target="_blank">链接4</a></li>
+            <li><a href="https://www.example5.com" target="_blank">链接5</a></li>
+            <li><a href="https://www.example6.com" target="_blank">链接6</a></li>
         </ul>
         
         <!-- 广告栏 -->
