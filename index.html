@@ -21,7 +21,7 @@
         .container {
             width: 90%;
             max-width: 900px;
-            padding: 40px; /* 增加顶部内边距 */
+            padding: 40px;
             background: #1c1c1c;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -29,12 +29,11 @@
         }
         .container h1 {
             margin: 20px 0;
-            font-size: 2em; /* 减少字体大小 */
+            font-size: 2em;
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
             color: #f3f3f3;
-            overflow: visible; /* 确保标题可见 */
         }
         .links {
             display: flex;
@@ -95,16 +94,13 @@
 
         /* 响应式设计 */
         @media (max-width: 768px) {
-            .links li {
-                flex: 1 1 100%;
-                margin: 10px 0;
-            }
             .container {
                 width: 100%;
                 padding: 20px;
+                padding-top: 60px; /* 移动端增加顶部间距 */
             }
             .container h1 {
-                font-size: 1.8em; /* 移动端字体大小 */
+                font-size: 1.5em; /* 移动端字体更小 */
             }
             .contact {
                 flex-direction: column;
@@ -121,10 +117,6 @@
         <ul class="links">
             <li><a href="https://sz.jinyebushefang.cc" target="_blank">深圳 | 今夜不设防</a></li>
             <li><a href="https://gz.jinyebushefang.cc" target="_blank">广州 | 今夜不设防</a></li>
-            <li><a href="https://www.example3.com" target="_blank">链接3</a></li>
-            <li><a href="https://www.example4.com" target="_blank">链接4</a></li>
-            <li><a href="https://www.example5.com" target="_blank">链接5</a></li>
-            <li><a href="https://www.example6.com" target="_blank">链接6</a></li>
         </ul>
         
         <!-- 广告栏 -->
