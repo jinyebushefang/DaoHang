@@ -16,12 +16,12 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            overflow-y: auto; /* 允许垂直滚动 */
+            overflow-y: auto;
         }
         .container {
             width: 90%;
             max-width: 900px;
-            padding: 30px;
+            padding: 40px; /* 增加顶部内边距 */
             background: #1c1c1c;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -29,11 +29,12 @@
         }
         .container h1 {
             margin: 20px 0;
-            font-size: 2.5em;
+            font-size: 2em; /* 减少字体大小 */
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
             color: #f3f3f3;
+            overflow: visible; /* 确保标题可见 */
         }
         .links {
             display: flex;
@@ -103,8 +104,7 @@
                 padding: 20px;
             }
             .container h1 {
-                font-size: 2em;
-                margin: 15px 0;
+                font-size: 1.8em; /* 移动端字体大小 */
             }
             .contact {
                 flex-direction: column;
