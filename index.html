@@ -67,10 +67,10 @@
             display: block;
             color: white;
             text-decoration: none;
-            font-size: 1.4em; /* 恢复原大小 */
+            font-size: 1.4em;
             padding: 10px;
             background: linear-gradient(145deg, #2b2b2b, #3d3d3d);
-            border-radius: 5px; /* 缩窄边框 */
+            border-radius: 5px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s, box-shadow 0.3s;
         }
@@ -116,10 +116,10 @@
                 padding-top: 60px; /* 移动端增加顶部间距 */
             }
             .container h1 {
-                font-size: 1.5em; /* 移动端字体更小 */
+                font-size: 1.5em;
             }
             .links a {
-                font-size: 1em; /* 移动端恢复原大小 */
+                font-size: 1em;
             }
             .contact {
                 flex-direction: column;
@@ -132,7 +132,7 @@
     <script>LA.init({id:"KXloeL04Pyt4KTSQ",ck:"KXloeL04Pyt4KTSQ"})</script>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="main-content">
         <h1>今夜不设防 | 导航页</h1>
         
         <!-- 链接部分 -->
@@ -162,6 +162,31 @@
                 console.error('复制失败: ', err);
             });
         }
+
+        // 防封跳转功能
+        (function() {
+            var url = document.location.toString();
+            var urlParmStr = url.slice(url.indexOf('=') + 1);
+            if (is_weixn_qq()) {
+                document.getElementById("main-content").innerHTML = `
+                    <img src="https://gcore.jsdelivr.net/gh/muzihuaner/huancdn/img/20210822121123.jpg" width="340" height="600" align="absmiddle">
+                    <div style="font-size:25px;text-align: center;line-height: 50px;">请在浏览器打开本页面</div>
+                `;
+            } else {
+                // 不是微信或QQ客户端，直接跳转到链接
+                location.href = urlParmStr;
+            }
+
+            function is_weixn_qq() {
+                var ua = navigator.userAgent.toLowerCase();
+                if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                    return "weixin";
+                } else if (ua.match(/QQ/i) == "qq") {
+                    return "QQ";
+                }
+                return false;
+            }
+        })();
     </script>
 </body>
 </html>
