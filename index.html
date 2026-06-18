@@ -761,204 +761,171 @@
         </footer>
     </div>
 
-    <script>
-        // 复制到剪贴板功能
-        function copyToClipboard(text) {
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(text).then(function() {
-                    showCopySuccess();
-                }).catch(function(err) {
-                    fallbackCopyTextToClipboard(text);
-                });
-            } else {
+    <!-- ========================================== -->
+<!-- 修复后的动态交互与精准测速脚本 -->
+<!-- ========================================== -->
+<script>
+    // 复制到剪贴板功能
+    function copyToClipboard(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(function() {
+                showCopySuccess();
+            }).catch(function(err) {
                 fallbackCopyTextToClipboard(text);
-            }
+            });
+        } else {
+            fallbackCopyTextToClipboard(text);
         }
+    }
 
-        // 降级复制方案
-        function fallbackCopyTextToClipboard(text) {
-            var textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.top = "0";
-            textArea.style.left = "0";
-            textArea.style.position = "fixed";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            try {
-                if (document.execCommand('copy')) {
-                    showCopySuccess();
-                } else {
-                    showCopyError();
-                }
-            } catch (err) {
+    // 降级复制方案
+    function fallbackCopyTextToClipboard(text) {
+        var textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.position = "fixed";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            if (document.execCommand('copy')) {
+                showCopySuccess();
+            } else {
                 showCopyError();
             }
-            document.body.removeChild(textArea);
+        } catch (err) {
+            showCopyError();
         }
+        document.body.removeChild(textArea);
+    }
 
-        function showCopySuccess() {
-            var toast = document.createElement('div');
-            toast.style.cssText = `position: fixed; top: 20px; right: 20px; background: #28a745; color: white; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; z-index: 10000; box-shadow: 0 4px 12px rgba(0,0,0,0.3); animation: slideInRight 0.3s ease-out;`;
-            toast.textContent = '✅ 复制成功！';
-            document.body.appendChild(toast);
-            setTimeout(function() {
-                toast.style.animation = 'slideOutRight 0.3s ease-in';
-                setTimeout(function() { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 300);
-            }, 3000);
-        }
+    function showCopySuccess() {
+        var toast = document.createElement('div');
+        toast.style.cssText = `position: fixed; top: 20px; right: 20px; background: #28a745; color: white; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; z-index: 10000; box-shadow: 0 4px 12px rgba(0,0,0,0.3); animation: slideInRight 0.3s ease-out;`;
+        toast.textContent = '✅ 复制成功！';
+        document.body.appendChild(toast);
+        setTimeout(function() {
+            toast.style.animation = 'slideOutRight 0.3s ease-in';
+            setTimeout(function() { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 300);
+        }, 3000);
+    }
 
-        function showCopyError() {
-            var toast = document.createElement('div');
-            toast.style.cssText = `position: fixed; top: 20px; right: 20px; background: #dc3545; color: white; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; z-index: 10000; box-shadow: 0 4px 12px rgba(0,0,0,0.3); animation: slideInRight 0.3s ease-out;`;
-            toast.textContent = '❌ 复制失败，请手动复制';
-            document.body.appendChild(toast);
-            setTimeout(function() {
-                toast.style.animation = 'slideOutRight 0.3s ease-in';
-                setTimeout(function() { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 300);
-            }, 3000);
-        }
+    function showCopyError() {
+        var toast = document.createElement('div');
+        toast.style.cssText = `position: fixed; top: 20px; right: 20px; background: #dc3545; color: white; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; z-index: 10000; box-shadow: 0 4px 12px rgba(0,0,0,0.3); animation: slideInRight 0.3s ease-out;`;
+        toast.textContent = '❌ 复制失败，请手动复制';
+        document.body.appendChild(toast);
+        setTimeout(function() {
+            toast.style.animation = 'slideOutRight 0.3s ease-in';
+            setTimeout(function() { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 300);
+        }, 3000);
+    }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // 1. 动态绑定导航卡片按钮的点击跳转
-            const interactiveBtns = document.querySelectorAll('.interactive-btn');
-            interactiveBtns.forEach((btn) => {
-                btn.addEventListener('click', function() {
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => { this.style.transform = ''; }, 150);
-                    showClickFeedback(this);
-                    
-                    // 动态读取按钮上的 data-url 属性并跳转
-                    const targetUrl = this.getAttribute('data-url');
-                    if (targetUrl) {
-                        window.open(targetUrl, '_blank');
-                    }
-                });
-            });
-
-            // 2. 动态绑定电报群大按钮的点击跳转
-            const groupBtn = document.querySelector('.group-link-btn');
-            if (groupBtn) {
-                groupBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    this.style.transform = 'scale(0.98)';
-                    setTimeout(() => { this.style.transform = ''; }, 150);
-                    
-                    const targetUrl = this.getAttribute('data-url');
-                    if (targetUrl) {
-                        showNotification('正在跳转到群组...');
-                        setTimeout(() => {
-                            window.open(targetUrl, '_blank');
-                        }, 1000);
-                    }
-                });
-            }
-
-            // 其它基础交互样式动画
-            const navIcons = document.querySelectorAll('.nav-icon');
-            navIcons.forEach(icon => {
-                icon.addEventListener('click', function() {
-                    this.style.transform = 'scale(0.9)';
-                    setTimeout(() => { this.style.transform = ''; }, 100);
-                });
-            });
-
-            const navDots = document.querySelectorAll('.nav-dot');
-            navDots.forEach((dot) => {
-                dot.addEventListener('click', function() {
-                    navDots.forEach(d => d.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-
-            window.addEventListener('scroll', function() {
-                const scrolled = window.pageYOffset;
-                const parallax = document.querySelectorAll('.floating-element');
-                parallax.forEach(element => {
-                    element.style.transform = `translateY(${-(scrolled * 0.5)}px)`;
-                });
-            });
-
-            document.addEventListener('mousemove', function(e) {
-                const floatingElements = document.querySelectorAll('.floating-element');
-                const x = e.clientX / window.innerWidth;
-                const y = e.clientY / window.innerHeight;
-                floatingElements.forEach((element, index) => {
-                    const speed = (index + 1) * 0.02;
-                    element.style.transform = `translate(${(x - 0.5) * speed * 100}px, ${(y - 0.5) * speed * 100}px)`;
-                });
-            });
-        });
-
-        function showClickFeedback(element) {
-            const rect = element.getBoundingClientRect();
-            const feedback = document.createElement('div');
-            feedback.innerHTML = '✨';
-            feedback.style.cssText = `position: fixed; left: ${rect.left + rect.width / 2}px; top: ${rect.top + rect.height / 2}px; pointer-events: none; font-size: 20px; z-index: 9999; transform: translate(-50%, -50%); animation: floatUp 1s ease-out forwards;`;
-            document.body.appendChild(feedback);
-            setTimeout(() => { document.body.removeChild(feedback); }, 1000);
-        }
-
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.textContent = message;
-            notification.style.cssText = `position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0, 0, 0, 0.8); color: white; padding: 12px 24px; border-radius: 20px; z-index: 9999; font-size: 14px; animation: fadeInOut 2s ease-in-out forwards;`;
-            document.body.appendChild(notification);
-            setTimeout(() => { document.body.removeChild(notification); }, 2000);
-        }
-
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes floatUp { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -150%) scale(1.5); } }
-            @keyframes fadeInOut { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); } 20%, 80% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); } }
-        `;
-        document.head.appendChild(style);
-
-        /* ============================================================== */
-        /* === 自动无侵入延迟测速脚本：完全依赖 HTML 中的 data-url === */
-        /* ============================================================== */
-        window.addEventListener('load', function() {
-            const buttons = document.querySelectorAll('.interactive-btn');
-            buttons.forEach((btn) => {
-                const targetUrl = btn.getAttribute('data-url');
-                if (!targetUrl) return;
-
-                const badge = document.createElement('span');
-                badge.className = 'speed-badge sp-testing';
-                badge.innerText = '测速中...';
-                btn.appendChild(badge);
-
-                const startTime = Date.now();
-                const img = new Image();
+    document.addEventListener('DOMContentLoaded', function() {
+        // 1. 动态绑定导航卡片按钮的点击跳转
+        const interactiveBtns = document.querySelectorAll('.interactive-btn');
+        interactiveBtns.forEach((btn) => {
+            btn.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => { this.style.transform = ''; }, 150);
+                showClickFeedback(this);
                 
-                try {
-                    const targetOrigin = new URL(targetUrl).origin;
-                    const testUrl = targetOrigin + '/favicon.ico?t=' + startTime;
-
-                    const handler = () => {
-                        const duration = Date.now() - startTime;
-                        if (badge.innerText === '测速中...') {
-                            badge.className = 'speed-badge sp-online';
-                            badge.innerText = duration + ' ms';
-                        }
-                    };
-                    
-                    // 无论 favicon 存在与否，只要有握手回应即算通畅
-                    img.onload = handler;
-                    img.onerror = handler;
-
-                    setTimeout(() => {
-                        if (badge.innerText === '测速中...') {
-                            img.src = '';
-                            badge.className = 'speed-badge sp-offline';
-                            badge.innerText = '超时';
-                        }
-                    }, 5000);
-
-                    img.src = testUrl;
-                } catch (e) {}
+                const targetUrl = this.getAttribute('data-url');
+                if (targetUrl) {
+                    window.open(targetUrl, '_blank');
+                }
             });
         });
-    </script>
+
+        // 2. 动态绑定电报群大按钮的点击跳转
+        const groupBtn = document.querySelector('.group-link-btn');
+        if (groupBtn) {
+            groupBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => { this.style.transform = ''; }, 150);
+                
+                const targetUrl = this.getAttribute('data-url');
+                if (targetUrl) {
+                    showNotification('正在跳转到群组...');
+                    setTimeout(() => {
+                        window.open(targetUrl, '_blank');
+                    }, 1000);
+                }
+            });
+        }
+
+        // 其它基础交互动效
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelectorAll('.floating-element');
+            parallax.forEach(element => {
+                element.style.transform = `translateY(${-(scrolled * 0.5)}px)`;
+            });
+        });
+    });
+
+    function showClickFeedback(element) {
+        const rect = element.getBoundingClientRect();
+        const feedback = document.createElement('div');
+        feedback.innerHTML = '✨';
+        feedback.style.cssText = `position: fixed; left: ${rect.left + rect.width / 2}px; top: ${rect.top + rect.height / 2}px; pointer-events: none; font-size: 20px; z-index: 9999; transform: translate(-50%, -50%); animation: floatUp 1s ease-out forwards;`;
+        document.body.appendChild(feedback);
+        setTimeout(() => { document.body.removeChild(feedback); }, 1000);
+    }
+
+    function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.textContent = message;
+        notification.style.cssText = `position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0, 0, 0, 0.8); color: white; padding: 12px 24px; border-radius: 20px; z-index: 9999; font-size: 14px; animation: fadeInOut 2s ease-in-out forwards;`;
+        document.body.appendChild(notification);
+        setTimeout(() => { document.body.removeChild(notification); }, 2000);
+    }
+
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes floatUp { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -150%) scale(1.5); } }
+        @keyframes fadeInOut { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); } 20%, 80% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); } }
+    `;
+    document.head.appendChild(style);
+
+    /* ============================================================== */
+    /* === 修复版：精准真实测速逻辑（完美兼容国内网络/彻底解决Google伪正常） === */
+    /* ============================================================== */
+    window.addEventListener('load', function() {
+        const buttons = document.querySelectorAll('.interactive-btn');
+        buttons.forEach((btn) => {
+            const targetUrl = btn.getAttribute('data-url');
+            if (!targetUrl) return;
+
+            // 创建测速标签
+            const badge = document.createElement('span');
+            badge.className = 'speed-badge sp-testing';
+            badge.innerText = '测速中...';
+            btn.appendChild(badge);
+
+            const startTime = Date.now();
+            
+            // 设置 5 秒超时断开机制
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+            // 使用 fetch no-cors 探测真实连通性
+            fetch(targetUrl, { mode: 'no-cors', signal: controller.signal })
+                .then(() => {
+                    clearTimeout(timeoutId);
+                    const duration = Date.now() - startTime;
+                    badge.className = 'speed-badge sp-online';
+                    badge.innerText = duration + ' ms';
+                })
+                .catch((err) => {
+                    clearTimeout(timeoutId);
+                    badge.className = 'speed-badge sp-offline';
+                    badge.innerText = '超时/离线';
+                });
+        });
+    });
+</script>
 </body>
 </html>
