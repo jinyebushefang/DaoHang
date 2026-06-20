@@ -192,17 +192,30 @@
             font-size: 16px;
         }
 
+        /* 站长联系信息卡片 */
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
         .contact-info {
             background: linear-gradient(45deg, #a8edea, #fed6e3);
             padding: 8px 12px;
             border-radius: 12px;
-            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: space-between;
             font-size: 13px;
             color: #333;
             box-shadow: 0 4px 12px rgba(168, 237, 234, 0.3);
+        }
+
+        .contact-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .contact-info a {
@@ -217,6 +230,24 @@
 
         .contact-icon {
             font-size: 16px;
+        }
+
+        .contact-copy-btn {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            border: none;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(255, 105, 180, 0.3);
+        }
+
+        .contact-copy-btn:hover {
+            background: linear-gradient(135deg, #ff1493, #dc143c);
+            transform: scale(1.05);
         }
 
         /* 交互按钮组 */
@@ -544,97 +575,6 @@
         .cloud-2 { right: 20px; animation-delay: 2s; }
         .cloud-3 { right: 40px; animation-delay: 4s; }
 
-        /* 底部导航 */
-        .bottom-nav {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 12px 16px;
-            margin-top: 20px;
-            border-radius: 20px 20px 0 0;
-            position: relative;
-            z-index: 2;
-        }
-
-        .nav-icons {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .nav-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-icon:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
-        }
-
-        .menu-icon {
-            position: relative;
-        }
-
-        .sparkle {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            font-size: 12px;
-            animation: sparkle 2s infinite;
-        }
-
-        @keyframes sparkle {
-            0%, 100% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 1; transform: scale(1); }
-        }
-
-        .notification {
-            position: relative;
-        }
-
-        .badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #ff4757;
-            color: white;
-            font-size: 10px;
-            padding: 2px 6px;
-            border-radius: 10px;
-            min-width: 16px;
-            text-align: center;
-        }
-
-        .nav-dots {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .nav-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .nav-dot.active {
-            background: white;
-            transform: scale(1.2);
-        }
-
         /* 响应式设计 */
         @media (max-width: 768px) {
             .container { max-width: 100%; padding: 20px 15px; }
@@ -690,9 +630,22 @@
                 <span>请 Ctrl+D 收藏本页到浏览器收藏夹回家不迷路</span>
             </div>
 
-            <div class="contact-info">
-                <span class="contact-icon">💬</span>
-                <span>若打不开可联系站长电报频道:<a href="https://t.me/jsbsf_daohang" target="_blank">点击打开</a></span>
+            <!-- 站长联系信息区域 -->
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-left">
+                        <span class="contact-icon">💬</span>
+                        <span>若打不开可联系站长电报频道:</span>
+                    </div>
+                    <a href="https://t.me/jsbsf_daohang" target="_blank">点击打开</a>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-left">
+                        <span class="contact-icon">✉️</span>
+                        <span>站长邮箱: <span style="font-weight: 600; color: #d63384; word-break: break-all;">jinyebushefang88@gmail.com</span></span>
+                    </div>
+                    <button class="contact-copy-btn" onclick="copyToClipboard('jinyebushefang88@gmail.com')">点击复制</button>
+                </div>
             </div>
 
             <div class="button-grid">
@@ -712,18 +665,18 @@
                     <div class="ad-item">
                         <span class="ad-label">科学上网(低调云),平价机场.:</span>
                         <div style="display: flex; align-items: center; gap: 8px;">
-                            <span class="ad-link" id="tg-group-text">https://u.diggoo.xyz/5jvm46</span>
-                            <button class="ad-copy-btn" onclick="copyToClipboard(document.getElementById('tg-group-text').innerText)">复制</button>
+                            <span class="ad-link" id="tg-group-text-1">https://u.diggoo.xyz/5jvm46</span>
+                            <button class="ad-copy-btn" onclick="copyToClipboard(document.getElementById('tg-group-text-1').innerText)">复制</button>
                         </div>
                         <span class="ad-label">科学上网(最牛云),高速线路.:</span>
                         <div style="display: flex; align-items: center; gap: 8px;">
-                            <span class="ad-link" id="tg-group-text">https://u.diggoo.xyz/etp9mu</span>
-                            <button class="ad-copy-btn" onclick="copyToClipboard(document.getElementById('tg-group-text').innerText)">复制</button>
+                            <span class="ad-link" id="tg-group-text-2">https://u.diggoo.xyz/etp9mu</span>
+                            <button class="ad-copy-btn" onclick="copyToClipboard(document.getElementById('tg-group-text-2').innerText)">复制</button>
                         </div>
                         <span class="ad-label">电报群组:</span>
                         <div style="display: flex; align-items: center; gap: 8px;">
-                            <span class="ad-link" id="tg-group-text">https://t.me/+NhaDrN-H8GNhNWJh</span>
-                            <button class="ad-copy-btn" onclick="copyToClipboard(document.getElementById('tg-group-text').innerText)">复制</button>
+                            <span class="ad-link" id="tg-group-text-3">https://t.me/+NhaDrN-H8GNhNWJh</span>
+                            <button class="ad-copy-btn" onclick="copyToClipboard(document.getElementById('tg-group-text-3').innerText)">复制</button>
                         </div>
                     </div>
                 </div>
